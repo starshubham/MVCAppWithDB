@@ -65,5 +65,12 @@ namespace MVCAppWithDB.Controllers
             }
             return View();
         }
+
+        public ActionResult Delete(int id)
+        {
+            repository.DeleteEmployee(id);
+
+            return RedirectToAction("GetAllRecords");
+        }
     }
 }
