@@ -47,5 +47,23 @@ namespace MVCAppWithDB.Controllers
             var employee = repository.GetEmployee(id);
             return View(employee);
         }
+
+        public ActionResult Edit(int id)
+        {
+            var employee = repository.GetEmployee(id);
+            return View(employee);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EmployeeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.UpdateEmployee(model.Id, model);
+
+                return RedirectToAction("GetAllRecords");
+            }
+            return View();
+        }
     }
 }
