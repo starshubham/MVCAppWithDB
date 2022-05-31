@@ -38,5 +38,60 @@ namespace MyApp.Db.DbOperations
 
             }
         }
+
+        public List<EmployeeModel> GetAllEmployees()
+        {
+            using (var context = new EmployeeDBEntities())
+            {
+                var result = context.Employee
+                    .Select(x => new EmployeeModel()
+                    {
+                        Id = x.Id,
+                        AddressId = x.AddressId,
+                        Code = x.Code,
+                        Email = x.Email,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        Address = new AddressModel()
+                        {
+                            Id = x.Address.Id,
+                            Details = x.Address.Details,
+                            Country = x.Address.Country,
+                            State = x.Address.State
+                        }
+                    })
+                    .ToList();
+
+                return result;
+            }
+        }
+
+        public EmployeeModel GetEmployee(int id)
+        {
+            using (var context = new EmployeeDBEntities())
+            {
+                var result = context.Employee
+                    .Where(x => x.Id == id)
+                    .Select(x => new EmployeeModel()
+                    {
+                        Id = x.Id,
+                        AddressId = x.AddressId,
+                        Code = x.Code,
+                        Email = x.Email,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        Address = new AddressModel()
+                        {
+                            Id = x.Address.Id,
+                            Details = x.Address.Details,
+                            Country = x.Address.Country,
+                            State = x.Address.State
+                        }
+                    })
+                    .FirstOrDefault();
+
+                return result;
+            }
+        }
     }
 }
