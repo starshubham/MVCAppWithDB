@@ -113,5 +113,20 @@ namespace MyApp.Db.DbOperations
                 return true;
             }
         }
+
+        public bool DeleteEmployee(int id)
+        {
+            using (var context = new EmployeeDBEntities())
+            {
+                var employee = context.Employee.FirstOrDefault(x => x.Id == id);
+                if (employee != null)
+                {
+                    context.Employee.Remove(employee);
+                    context.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+        }
     }
 }
