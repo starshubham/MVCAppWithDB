@@ -21,6 +21,15 @@ namespace MyApp.Db.DbOperations
                     Code = model.Code
                 };
 
+                if (model.Address != null)
+                {
+                    emp.Address = new Address()
+                    {
+                        Details = model.Address.Details,
+                        Country = model.Address.Country,
+                        State = model.Address.State
+                    };
+                }
                 context.Employee.Add(emp);
 
                 context.SaveChanges();
